@@ -1,33 +1,59 @@
 #include<iostream>
-// TODO: replace with custom map
-#include<map>
+// TODO: replace with custom list
+#include<list>
 
-class graph {
-  int V;
-  vector<bool> visited;
-  vector<vector<int>> adj;
-public:
-  graph();
-  graph(int);
-  ~graph();
-}
-
-graph::graph() {
-  V = 0;
-}
-
-graph::graph(int vertices) {
-  V = vertices;
-  visited = new vector<bool> (V, false);
-  adj = new vector<vector<int>> (V);
-}
-
-graph::~graph() {
-  if(!V)
-    return;
-  delete[] visited;
-  for(int i=0;i<adj.size();i++) {
-    delete[] adj[i];
+namespace stl {
+  class graph {
+    int V;
+    std::list<int> *adj;
+    /* int *components; */
+    /* int num_components; */
+    public:
+    graph(int);
+    ~graph();
+    int size();
+    void add_edge(int, int);
+    void dfs();
+    void _dfs(int, bool[]);
+    /* void bfs(); */
+    /* int find_components(); */
+    /* void _components(); */
   }
-  delete[] adj;
+
+  graph::graph(int vertices) {
+    this->V = vertices;
+    this->adj = new std::list<int> [V];
+  }
+
+  graph::~graph() {
+    delete[] adj;
+  }
+
+  int graph::size() {
+    return V;
+  }
+
+  void graph::add_edge(int u, int v) {
+    this->adj[u].push(v);
+    this->adj[v].push(u);
+  }
+
+  void graph::add_edges(int u, int v[])
+
+  void graph::dfs() {
+    bool visited[this->V] = {0};
+    for(int i=0; i<this->V;i++)
+      _dfs(i, visited);
+  }
+
+  void graph::_dfs(int u, bool visited[]) {
+    visited[u] = 1;
+    for(int i=0;i<(int)adj[u].size();i++)
+      if(!visited[adj[u][i]])
+        _dfs(adj[u][i], visited);
+  }
+
+  /* int graph::find_components() { */
+  /*   std::cout<<"Not implemented yet!"; */
+  /* } */
 }
