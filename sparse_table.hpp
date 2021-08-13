@@ -1,4 +1,5 @@
 #include<iostream>
+#include<climits>
 // TODO: use custom vector
 #include<vector>
 
@@ -14,7 +15,7 @@ namespace stl {
     int cascading_query(int, int);
     int query_index(int, int);
     ~min_sparse_table();
-  }
+  };
   
   min_sparse_table::min_sparse_table(std::vector<int> values) {
     this->N = values.size();
@@ -37,11 +38,11 @@ namespace stl {
       for(int j=0;j+(1<<i)<=this->N;j++) {
         int left = lookup[i-1][j];
         int right = lookup[i-1][j+(1<<(i-1))];
-        lookup[i][j] = min(left, right);
+        lookup[i][j] = std::min(left, right);
         if(left<=right)
-          it[i][j] = it[i-1][j];
+          idx[i][j] = idx[i-1][j];
         else
-          it[i][j] = it[i-1][j+(1<<(i-1))];
+          idx[i][j] = idx[i-1][j+(1<<(i-1))];
       }
     }
   }
@@ -51,13 +52,13 @@ namespace stl {
     int p = this->log2[len];
     int left = lookup[p][l];
     int right = lookup[p][r-(1<<p)+1];
-    return min(left, right);
+    return std::min(left, right);
   }
 
   int min_sparse_table::cascading_query(int l, int r) {
     int min_val = INT_MAX;
     for(int p=log2[r-l+1];l<=r;p=log2[r-l+1]) {
-      min_val = min(min_val, lookup[p][l]);
+      min_val = std::min(min_val, lookup[p][l]);
       l += (1<<p);
     }
     return min_val;
