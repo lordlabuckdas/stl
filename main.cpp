@@ -3,6 +3,7 @@
 #include "sparse_table.hpp"
 #include <vector>
 #include <string>
+#include "lru_cache.hpp"
 using namespace std;
 
 int main() {
@@ -48,8 +49,20 @@ int main() {
   /* rt.insert("100"); */
   /* rt.insert("1011"); */
   /* rt.print(); */
-  vector<int> val = {76,4,36,21,51,32,15,43,66};
-  stl::min_sparse_table st(val);
-  cout<<st.query(2,5);
+  /* vector<int> val = {76,4,36,21,51,32,15,43,66}; */
+  /* stl::min_sparse_table st(val); */
+  /* cout<<st.query(2,5); */
+  stl::lru_cache<int, int> cache(2);
+  cache.put(2,20);
+  cout<<"2: "<<cache.get(2)<<'\n';
+  cout<<"1: "<<cache.get(1)<<'\n';
+  cache.put(1,10);
+  cout<<"1: "<<cache.get(1)<<'\n';
+  cache.put(1,100);
+  cout<<"1: "<<cache.get(1)<<'\n';
+  cache.put(8,88);
+  cout<<"1: "<<cache.get(1)<<'\n';
+  cout<<"8: "<<cache.get(8)<<'\n';
+  cout<<"2: "<<cache.get(2)<<'\n';
   return 0;
 }
