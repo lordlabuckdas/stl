@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 #include "lru_cache.hpp"
+#include "array.hpp"
+#include "stack.hpp"
 using namespace std;
 
 int main() {
@@ -52,17 +54,36 @@ int main() {
   /* vector<int> val = {76,4,36,21,51,32,15,43,66}; */
   /* stl::min_sparse_table st(val); */
   /* cout<<st.query(2,5); */
-  stl::lru_cache<int, int> cache(2);
-  cache.put(2,20);
-  cout<<"2: "<<cache.get(2)<<'\n';
-  cout<<"1: "<<cache.get(1)<<'\n';
-  cache.put(1,10);
-  cout<<"1: "<<cache.get(1)<<'\n';
-  cache.put(1,100);
-  cout<<"1: "<<cache.get(1)<<'\n';
-  cache.put(8,88);
-  cout<<"1: "<<cache.get(1)<<'\n';
-  cout<<"8: "<<cache.get(8)<<'\n';
-  cout<<"2: "<<cache.get(2)<<'\n';
+  /* stl::lru_cache<int, int> cache(2); */
+  /* cache.put(2,20); */
+  /* cout<<"2: "<<cache.get(2)<<'\n'; */
+  /* cout<<"1: "<<cache.get(1)<<'\n'; */
+  /* cache.put(1,10); */
+  /* cout<<"1: "<<cache.get(1)<<'\n'; */
+  /* cache.put(1,100); */
+  /* cout<<"1: "<<cache.get(1)<<'\n'; */
+  /* cache.put(8,88); */
+  /* cout<<"1: "<<cache.get(1)<<'\n'; */
+  /* cout<<"8: "<<cache.get(8)<<'\n'; */
+  /* cout<<"2: "<<cache.get(2)<<'\n'; */
+  /* stl::array<int> arr(3); */
+  /* arr[0] = 1; */
+  /* arr[1] = 2; */
+  /* arr[2] = 3; */
+  /* cout<<arr[0]<<' '<<arr[1]<<' '<<arr[2]<<'\n'; */
+  /* cout<<arr[3]<<'\n'; */
+  stl::stack<int> s;
+  s.insert(10);
+  cout<<s.top()<<endl;
+  s.insert(20);
+  cout<<s.top()<<'\n';
+  s.insert(30);
+  cout<<s.top()<<'\n';
+  s.insert(40);
+  cout<<s.top()<<'\n';
+  s.pop();
+  /* cout<<s.pop()<<'\n'; */
+  cout<<s.top()<<'\n';
+  cout<<s.size()<<'\n';
   return 0;
 }
