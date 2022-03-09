@@ -1,33 +1,67 @@
+// #include <cstddef>
+#include <stdexcept>
+
 namespace stl {
-  class queue {
-    int *_front, *_rear;
-    unsigned int size, capacity;
+    template <typename T>
+    class queue {
+    private:
+        T* ptr;
+        size_t _size, cap;
+        // T* resize(size_t);
     public:
-    queue(unsigned int);
-    queue();
-    unsigned int size();
-    int front();
-    int rear();
-  }
+        queue(size_t = 10);
+        ~queue();
+        size_t size();
+        T front();
+        T rear();
+        void push(T);
+        T pop();
+    };
 
-  queue::queue(unsigned int cap) {
-    this->size = 0;
-    this->capacity = cap;
-  }
+    template <typename T>
+    queue<T>::queue(size_t c) {
+        this->_size = 0;
+        this->cap = c;
+        this->ptr = new T[c];
+    }
 
-  queue::queue() {
-    queue(10);
-  }
+    template <typename T>
+    queue<T>::~queue() {
+        delete[] ptr;
+    }
 
-  int queue::front() {
-    return *this->_front;
-  }
+    template <typename T>
+    T queue<T>::front() {
+        return this->ptr;
+    }
 
-  int queue::rear() {
-    return *this->_rear;
-  }
+    template <typename T>
+    T queue<T>::rear() {
+        return this->ptr + this->_size - 1;
+    }
 
-  unsigned int queue::size() {
-    return this->size;
-  }
+    template <typename T>
+    size_t queue<T>::size() {
+        return this->_size;
+    }
+
+    template <typename T>
+    void queue<T>::push(T val) {
+        if(this->_size == this->cap) {
+            throw std::out_of_range("Queue has reached its max size\n");
+            // if(this->is_fixed_size) {
+            //     throw std::out_of_range("Queue has reached its max size\n");
+            // }
+            // resize
+        }
+        this->ptr[this->_size++] = val;
+    }
+
+    template <typename T>
+    T queue<T>::pop() {
+        if(this->_size == 0) {
+            throw std::out_of_range("No elements left to pop in queue\n");
+        }
+        return this->ptr[--this->_size];
+    }
 }
